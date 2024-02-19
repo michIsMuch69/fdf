@@ -6,46 +6,38 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 15:54:55 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:30:15 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fdf.h"
-
-t_map	*allocate_map(int height, int width)
+void print_array(int **array, int height, int width)
 {
-	t_map	*map;
-	int		i;
+	int	y;
+	int	x;
 
-	i = 0;
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return(NULL);
-	map->vertices = malloc(height * sizeof(int *));
-	while(i < height)
+	y = 0;
+	while (y < height)
 	{
-		map->vertices[i] = malloc(width * sizeof(int));
-		if (!map->vertices[i])
+		x = 0;
+		while (x < width)
 		{
-			while (i >= 0)
-			{
-				free(map->vertices[i]);
-				i--;
-			}
-			free(map);
-			free(map->vertices);
-			return (NULL);
+			printf("%d", array[y][x]);
+			x++;
 		}
-		i++;
+		printf("\n");
+		y++;
 	}
-	return (map);
+		
 }
+
 int	main(int argc, char **argv)
 {
 	t_map	*map;
+	int		**array;
 	char	*file_path;
-	//int		fd;
+	int		fd;
 	int		height;
 	int		width;
 
@@ -55,10 +47,12 @@ int	main(int argc, char **argv)
 	height = calculate_map_height(file_path);
 	width = calculate_map_width(file_path);
 	map = allocate_map(height, width);
-	
-	//fd = open(file_path, O_RDONLY);
+	map->width = width;
+	map->height = height;
+	fd = open(file_path, O_RDONLY);
+	array = read_map(fd, width, height);
 	printf("Width  de map  : %d\n", map->width);
-	printf("Height de map : %d\n", height);
-
-	
+	printf("Height de map : %d\n", map->height);
+	print_array(array, height, width);
+		
 }

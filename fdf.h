@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 15:09:46 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:50:51 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ typedef struct s_map
 int		calculate_map_width(const char *file_path);
 void	free_tokens(char **tokens);
 int		calculate_map_height(const char *file_path);
+int 	**read_map(int fd, int width, int height);
+t_map	*allocate_map(int height, int width);
+
+
 
 
