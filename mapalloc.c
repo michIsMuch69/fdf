@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:14:57 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 16:13:57 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:40:37 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ void	free_tokens(char **tokens)
 		i++;
 	}
 	free(tokens);
+}
+
+void	free_array(int **array)
+{
+	int	i;
+
+	i = 0;
+	if(array== NULL)
+		return ;
+	while (array && array[i] != NULL)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
 void	free_map(t_map *map)
 {
@@ -62,7 +77,7 @@ t_map	*allocate_map(int height, int width)
 			}
 			free(map);
 			free(map->vertices);
-			//return (NULL);
+			return (NULL);
 		}
 		i++;
 	}

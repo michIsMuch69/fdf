@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 17:30:15 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:37:27 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int	main(int argc, char **argv)
 	printf("Width  de map  : %d\n", map->width);
 	printf("Height de map : %d\n", map->height);
 	print_array(array, height, width);
+	free_array(array);
+	free_map(map);
 		
 }

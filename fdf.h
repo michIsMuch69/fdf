@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 16:50:51 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:37:13 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	free_tokens(char **tokens);
 int		calculate_map_height(const char *file_path);
 int 	**read_map(int fd, int width, int height);
 t_map	*allocate_map(int height, int width);
+void	free_array(int **array);
+void	free_map(t_map *map);
+
+
 
 
 

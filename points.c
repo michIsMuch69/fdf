@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:55:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 17:24:48 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:43:36 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	**vert_array(int height, int width)
 
 	i = 0;
 	array = malloc(height * sizeof(int *));
-	while (i < height)
+	while (i <= height)
 	{
 		array[i] = malloc(width * sizeof(int));
 		i++;
@@ -42,7 +42,6 @@ int **read_map(int fd, int width, int height)
 	char	*line;
 	char 	**line_vertices;
 	
-	//line = NULL;
 	array = vert_array(height, width);
 	y = 0;
 	while (line != NULL)
