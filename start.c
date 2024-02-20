@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:41:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 17:17:26 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:13:31 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ typedef struct s_data
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char *dst;
-	dst = data->addr + (y * data->line_length + x * data->bits_per_pixel / 8);
+	dst = data->addr + (y * data->line_length + x * data->bits_per_pixel / 4);
 	*(unsigned int*)dst = color;
 }
 
 void init_mlx_win_img(int **array, int height, int width) 
 {
-	printf("=====%d", array[3][3]);
     void *mlx_ptr;
     void *win_ptr;
     t_data img;
-    int x, y;
-    int a, b;
-	//array = allocate_array(height, width);
+    int x; 
+	int	y;
+    int a;
+	int b;
     mlx_ptr = mlx_init();
     if (!mlx_ptr)
         return;
@@ -53,7 +53,7 @@ void init_mlx_win_img(int **array, int height, int width)
         a = 50; // Initial horizontal offset
         while (x  < width) 
 		{
-            if (array[y][x] == 10) 
+            if (array[y][x] > 0) 
                 my_mlx_pixel_put(&img, a, b, 0x00FF0000); 
 			else 
                 my_mlx_pixel_put(&img, a, b, 0xFFFFFF); 
@@ -66,6 +66,4 @@ void init_mlx_win_img(int **array, int height, int width)
     mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
     mlx_loop(mlx_ptr);
 }
-
-	// The increments for a and b (a += 10; and b += 10;) will space out the pixels,
-	//  but ensure they don't exceed the image boundaries (1920x1980).
+	//s'assurer que l'icremantatin de a et b ne depasse pas les limites de l'image

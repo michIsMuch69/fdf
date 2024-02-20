@@ -6,90 +6,69 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:55:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 17:08:21 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:12:09 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// int	**allocate_array(int height, int width)
-// {
-// 	int	**array;
-// 	int	i;
-
-// 	i = 0;
-// 	array = malloc(height + 1 * sizeof(int *));
-// 	if(!array)
-// 		return NULL;
-// 	while (i < height)
-// 	{
-// 		array[i] = malloc(width * sizeof(int));
-// 		i++;
-// 	}
-// 	return (array);
-// }
 
 int	**allocate_array(int height, int width) 
 {
 	int	**array;
 	int	i;
 
-	array = malloc((height + 1) * sizeof(int *));  // Allocate space for height + 1 pointers
+	array = malloc((height + 1) * sizeof(int *));
 	if (!array)
 		return NULL;
 	i = 0;
 	while (i < height) 
 	{
-		array[i] = malloc(width * sizeof(int));  // Allocate each row
+		array[i] = malloc(width * sizeof(int));  
 		if (!array[i]) 
-		{  // Handle allocation failure
+		{  
 			while (--i >= 0) 
 				free(array[i]);
-			free(array);  // Free the array itself
+			free(array);  
 			return NULL;
 		}
 		i++;
 	}
-	array[height] = NULL;  // Null-terminate the array
+	array[height] = NULL;
 
 	return array;
 }
 
-
-
-int	**read_map(int fd, int width, int height)
+void process_line(char *line, int **array, int y, int width) 
 {
-	int		x;
-	int		y;
-	int		vertice;
-	int		**array;
-	char	*line;
-	char	**line_vertices;
+    char **line_vertices;
+    int x = 0;
+    int vertice;
 
-	array = allocate_array(height, width);
-	y = 0;
-	line = get_next_line(fd);
-	while (line != NULL)
+    line_vertices = ft_split(line, ' ');
+    while (line_vertices[x] != NULL && x < width) 
 	{
-		line_vertices = ft_split(line, ' ');
-		if (line_vertices == NULL)
-			break ;
-		x = 0;
-		while (line_vertices[x] != NULL )
-		{
-			if (x >= width)
-				break ;
-			vertice = ft_atoi(line_vertices[x]);
-			array[y][x] = vertice;
-			x++;
-		}
-		free(line);
-		free_tokens(line_vertices);
-		line = get_next_line(fd);
-		y++;
-		if (y >= height)
-			break ;
-	}
-	close (fd);
-	return (array);
+        vertice = ft_atoi(line_vertices[x]);
+        array[y][x] = vertice;
+        x++;
+    }
+    free_tokens(line_vertices);
 }
+
+int **read_map(int fd, int width, int height) 
+{
+    int y = 0;
+    int **array;
+    char *line;
+
+    array = allocate_array(height, width);
+    while ((line = get_next_line(fd)) != NULL && y < height) 
+	{
+        process_line(line, array, y, width);
+        free(line);
+        y++;
+    }
+    close(fd);
+    return array;
+}
+
