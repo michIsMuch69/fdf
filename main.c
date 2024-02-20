@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 10:56:17 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:59:18 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	print_array(int **array, int height, int width)
 	}
 }
 
+
 int	main(int argc, char **argv)
 {
 	t_map	*map;
@@ -53,6 +54,7 @@ int	main(int argc, char **argv)
 	printf("Width  de map  : %d\n", map->width);
 	printf("Height de map : %d\n", map->height);
 	print_array(array, height, width);
+	init_mlx_win_img();
 	close (fd);
 	free_array(array, height);
 	free_map(map);

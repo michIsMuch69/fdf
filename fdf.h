@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 10:35:12 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:58:56 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,4 @@ int		**read_map(int fd, int width, int height);
 t_map	*allocate_map(int height, int width);
 void	free_array(int **array, int height);
 void	free_map(t_map *map);
+void 	init_mlx_win_img();
