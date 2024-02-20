@@ -6,30 +6,30 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 14:29:55 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:14:28 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	print_array(int **array, int height, int width)
-{
-	int	y;
-	int	x;
+// void	print_array(int **array, int height, int width)
+// {
+// 	int	y;
+// 	int	x;
 
-	y = 0;
-	while (y < height)
-	{
-		x = 0;
-		while (x < width)
-		{
-			printf("%d", array[y][x]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-}
+// 	y = 0;
+// 	while (y < height)
+// 	{
+// 		x = 0;
+// 		while (x < width)
+// 		{
+// 			printf("%d", array[y][x]);
+// 			x++;
+// 		}
+// 		printf("\n");
+// 		y++;
+// 	}
+// }
 
 
 int	main(int argc, char **argv)
@@ -53,8 +53,11 @@ int	main(int argc, char **argv)
 	array = read_map(fd, width, height);
 	printf("Width  de map  : %d\n", map->width);
 	printf("Height de map : %d\n", map->height);
-	print_array(array, height, width);
-	init_mlx_win_img();
+	printf("=====%d", array[3][3]);
+	//print_array(array, height, width);
+	printf("=====%d", array[3][3]);
+
+	init_mlx_win_img(array, height, width);
 	close (fd);
 	free_array(array, height);
 	free_map(map);

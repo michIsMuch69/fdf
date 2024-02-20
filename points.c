@@ -6,32 +6,56 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:55:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 10:38:32 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:08:21 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	**vert_array(int height, int width)
+// int	**allocate_array(int height, int width)
+// {
+// 	int	**array;
+// 	int	i;
+
+// 	i = 0;
+// 	array = malloc(height + 1 * sizeof(int *));
+// 	if(!array)
+// 		return NULL;
+// 	while (i < height)
+// 	{
+// 		array[i] = malloc(width * sizeof(int));
+// 		i++;
+// 	}
+// 	return (array);
+// }
+
+int	**allocate_array(int height, int width) 
 {
 	int	**array;
 	int	i;
 
+	array = malloc((height + 1) * sizeof(int *));  // Allocate space for height + 1 pointers
+	if (!array)
+		return NULL;
 	i = 0;
-	array = malloc(height * sizeof(int *));
-	while (i < height)
+	while (i < height) 
 	{
-		array[i] = malloc(width * sizeof(int));
+		array[i] = malloc(width * sizeof(int));  // Allocate each row
+		if (!array[i]) 
+		{  // Handle allocation failure
+			while (--i >= 0) 
+				free(array[i]);
+			free(array);  // Free the array itself
+			return NULL;
+		}
 		i++;
 	}
-	return (array);
+	array[height] = NULL;  // Null-terminate the array
+
+	return array;
 }
 
-// int **fill_array(int **array, int y, int x, int vertice)
-// {
-// 	array = vert_array(width, height);
-// 	array[y][x] = vertice;
-// }
+
 
 int	**read_map(int fd, int width, int height)
 {
@@ -42,7 +66,7 @@ int	**read_map(int fd, int width, int height)
 	char	*line;
 	char	**line_vertices;
 
-	array = vert_array(height, width);
+	array = allocate_array(height, width);
 	y = 0;
 	line = get_next_line(fd);
 	while (line != NULL)

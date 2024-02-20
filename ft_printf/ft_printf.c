@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:28:16 by jedusser          #+#    #+#             */
-/*   Updated: 2024/01/12 10:40:24 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:06:06 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@ int	handle_format_string(char const *format, va_list args)
 
 int	ft_printf(const char *format, ...)
 {
-	int		index;
 	int		total;
 	va_list	args;
 
-	index = 0;
 	total = 0;
 	if (!format)
 		return (-1);
