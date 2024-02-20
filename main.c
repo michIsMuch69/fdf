@@ -6,13 +6,13 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 10:23:55 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:56:17 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "fdf.h"
-void print_array(int **array, int height, int width)
+
+void	print_array(int **array, int height, int width)
 {
 	int	y;
 	int	x;
@@ -29,7 +29,6 @@ void print_array(int **array, int height, int width)
 		printf("\n");
 		y++;
 	}
-		
 }
 
 int	main(int argc, char **argv)
@@ -57,5 +56,4 @@ int	main(int argc, char **argv)
 	close (fd);
 	free_array(array, height);
 	free_map(map);
-		
 }

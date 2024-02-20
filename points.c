@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:55:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 10:33:07 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:38:32 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,28 @@ int	**vert_array(int height, int width)
 // 	array[y][x] = vertice;
 // }
 
-int **read_map(int fd, int width, int height)
+int	**read_map(int fd, int width, int height)
 {
 	int		x;
 	int		y;
 	int		vertice;
 	int		**array;
 	char	*line;
-	char 	**line_vertices;
-	
+	char	**line_vertices;
+
 	array = vert_array(height, width);
 	y = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		line_vertices = ft_split(line, ' ');
-		if(line_vertices == NULL)
-			break;
+		if (line_vertices == NULL)
+			break ;
 		x = 0;
 		while (line_vertices[x] != NULL )
 		{
 			if (x >= width)
-				break;
+				break ;
 			vertice = ft_atoi(line_vertices[x]);
 			array[y][x] = vertice;
 			x++;
@@ -64,7 +64,7 @@ int **read_map(int fd, int width, int height)
 		line = get_next_line(fd);
 		y++;
 		if (y >= height)
-			break;
+			break ;
 	}
 	close (fd);
 	return (array);

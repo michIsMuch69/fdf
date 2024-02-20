@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:08:40 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 15:08:57 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:44:01 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ int	calculate_map_height(const char *file_path)
 		perror("Erreur lors de l'ouverture du fichier");
 		return (-1);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		height++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (height);
