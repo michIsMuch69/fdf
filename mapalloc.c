@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:14:57 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 10:40:48 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:21:15 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,30 @@ t_map	*allocate_map(int height, int width)
 		i++;
 	}
 	return (map);
+}
+
+int	**allocate_array(int height, int width) 
+{
+	int	**array;
+	int	i;
+
+	array = malloc((height + 1) * sizeof(int *));
+	if (!array)
+		return NULL;
+	i = 0;
+	while (i < height) 
+	{
+		array[i] = malloc(width * sizeof(int));  
+		if (!array[i]) 
+		{  
+			while (--i >= 0) 
+				free(array[i]);
+			free(array);  
+			return NULL;
+		}
+		i++;
+	}
+	array[height] = NULL;
+
+	return array;
 }

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:41:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 18:13:31 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:15:03 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void init_mlx_win_img(int **array, int height, int width)
     img.img = mlx_new_image(mlx_ptr, 1920, 1080); // Adjusted to match window size
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
     y = 0;
-    b = 50; // Initial vertical offset
+    b = 50; // offset vertical
     while (y < height) 
 	{
         x = 0;
-        a = 50; // Initial horizontal offset
+        a = 50; //  offset horizontal
         while (x  < width) 
 		{
             if (array[y][x] > 0) 

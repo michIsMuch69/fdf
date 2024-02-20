@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 17:38:47 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:22:16 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,4 @@ void	free_array(int **array, int height);
 void	free_map(t_map *map);
 int		**allocate_array(int height, int width);
 void	init_mlx_win_img(int **array, int height, int width);
-
-
 void process_map(char *file_path, int height, int width);
