@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 17:42:50 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/21 11:59:49 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ void process_map(char *file_path, int height, int width)
     array = read_map(fd, width, height);
     printf("Width  de map  : %d\n", width);
     printf("Height de map : %d\n", height);
-    printf("=====%d", array[3][3]);
     //print_array(array, height, width);
-    printf("=====%d", array[3][3]);
     init_mlx_win_img(array, height, width);
     close(fd);
     free_array(array, height);
