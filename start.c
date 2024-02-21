@@ -6,14 +6,17 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:41:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/21 12:01:47 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:31:09 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 //initalisation des variables graphiques et checks preliminaires
-
+// void render_map(int	**array, int height, int width)
+// {
+	
+// }
 void init_mlx_win_img(int **array, int height, int width) 
 {
     void *mlx_ptr;
@@ -36,7 +39,11 @@ void init_mlx_win_img(int **array, int height, int width)
         x = 0;
         while (x < width) 
 		{
+			if (array[y][x] > 0)
                 draw_isometric_point(&img, x, y, array[y][x], 0xFFFFFF); 
+			else
+                draw_isometric_point(&img, x, y, array[y][x], 0xFF0000); 
+				
             x++;
         }
         y++;

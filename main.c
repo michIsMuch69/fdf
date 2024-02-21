@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/21 11:59:49 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:19:55 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 		return (-1);
     map = initialize_map(argv[1], &height, &width);
     if (map == NULL) 
-	return (-1); 
+		return (-1); 
     process_map(argv[1], height, width);
     free_map(map);
     return 0;
