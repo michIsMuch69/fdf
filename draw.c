@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:42:38 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/22 17:14:48 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:24:26 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,23 @@ void draw_line_bresenham(t_data *data, int x_start, int y_start, int x_end, int 
     }
 }
 
-void draw_isometric_line(t_data *data, int x_start, int y_start, int z0, int x_end, int y_end, int zn, unsigned int color) {
-    int iso_x0, iso_y0, iso_xn, iso_yn;
-
+void draw_isometric_line(t_data *data, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color) {
+    int iso_x_start;
+	int iso_y_start;
+	int iso_x_end;
+	int iso_y_end;
+	float z_factor;
 	int scale;
 
 	scale = 20;
+	z_factor = 0.2;
     // Calculate isometric coordinates for start point
-    iso_x0 = scale * ((x_start - y_start) * cos(M_PI / 6)) + data->width / 8;
-    iso_y0 = scale * ((x_start + y_start) * sin(M_PI / 6) - z0) + data->height / 2;
-
+    iso_x_start = scale * ((x_start - y_start) * cos(M_PI / 6)) + data->width / 4;
+    iso_y_start = scale * ((x_start + y_start) * sin(M_PI / 4) - z_factor * z_start) + data->height / 4;
     // Calculate isometric coordinates for end point
-    iso_xn = scale * ((x_end - y_end) * cos(M_PI / 6)) + data->width / 8;
-    iso_yn = scale * ((x_end + y_end) * sin(M_PI / 6) - zn) + data->height / 2;
+    iso_x_end = scale * ((x_end - y_end) * cos(M_PI / 6)) + data->width / 4;
+    iso_y_end = scale * ((x_end + y_end) * sin(M_PI / 4) - z_factor * z_end) + data->height / 4;
 
     // Draw line between isometric points
-    draw_line_bresenham(data, iso_x0, iso_y0, iso_xn, iso_yn, color);
+    draw_line_bresenham(data, iso_x_start, iso_y_start, iso_x_end, iso_y_end, color);
 }

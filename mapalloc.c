@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:14:57 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 18:21:15 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:38:30 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ int	**allocate_array(int height, int width)
 			while (--i >= 0) 
 				free(array[i]);
 			free(array);  
-			return NULL;
+				return NULL;
 		}
 		i++;
 	}
-	array[height] = NULL;
+	array[height] = '\0';
 
 	return array;
 }
