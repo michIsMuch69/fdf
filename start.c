@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:41:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/22 16:59:52 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/22 22:31:44 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@
         x = 0;
         while (x < width - 1) // Adjust to prevent accessing out-of-bounds
         {
-            // Draw line to the right
+            	// tout simplement, ajoute un instruction tres simple pour afficher le slignes sur x et sur y 
+
+            // ligne vers la droite
 
             draw_isometric_line(&img, x, y, array[y][x], x + 1, y, array[y][x + 1], 0xFFFFFF);
-            // Draw line down
+            // ligne descendante
             draw_isometric_line(&img, x, y, array[y][x], x, y + 1, array[y + 1][x], 0xFFFFFF);
 
             x++;
@@ -88,3 +90,5 @@
     mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
     mlx_loop(mlx_ptr);
 }
+
+A noter : que se passe t'il lorsque deux espaces/ ou un signe - ? ? incremanter la taille de un par signe ????
