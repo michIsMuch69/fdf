@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:42:38 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/22 16:50:32 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:14:48 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,64 +39,71 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 //     my_mlx_pixel_put(data, iso_x, iso_y, color);
 // }
 
-void draw_line_bresenham(t_data *data, int x0, int y0, int xn, int yn, unsigned int color) {
-    int dx, dy, sx, sy, err, e2;
+void draw_line_bresenham(t_data *data, int x_start, int y_start, int x_end, int y_end, unsigned int color) {
+    int dx;
+	int dy;
+	int sx;
+	int sy;
+	int err;
+	int e2;
 
     // Calculate dx, dy
-    if (xn > x0) 
+    if (x_end > x_start) 
 	{
-        dx = xn - x0;
+        dx = x_end - x_start;
         sx = 1;
     } 
 	else 
 	{
-        dx = x0 - xn;
+        dx = x_start - x_end;
         sx = -1;
     }
 
-    if (yn > y0) 
+    if (y_end > y_start) 
 	{
-        dy = yn - y0;
+        dy = y_end - y_start;
         sy = 1;
     } 
 	else 
 	{
-        dy = y0 - yn;
+        dy = y_start - y_end;
         sy = -1;
     }
     err = dx - dy;
     while (1)
 	{
-        my_mlx_pixel_put(data, x0, y0, color); // Set pixel at (x0, y0)
-        if (x0 == xn && y0 == yn) 
+        my_mlx_pixel_put(data, x_start, y_start, color); // Set pixel at (x_start, y_start)
+        if (x_start == x_end && y_start == y_end) 
 			break;
         e2 = 2 * err;
-        if (e2 > -dy) 
+        if (e2 >= -dy) 
 		{
             err -= dy;
-            x0 += sx;
+            x_start += sx;
         }
-        if (e2 < dx) 
+        if (e2 <= dx) 
 		{
+			if (y_start == y_end)
+				break;
             err += dx;
-            y0 += sy;
+            y_start += sy;
         }
     }
 }
 
-void draw_isometric_line(t_data *data, int x0, int y0, int z0, int xn, int yn, int zn, unsigned int color) {
+void draw_isometric_line(t_data *data, int x_start, int y_start, int z0, int x_end, int y_end, int zn, unsigned int color) {
     int iso_x0, iso_y0, iso_xn, iso_yn;
 
 	int scale;
 
 	scale = 20;
     // Calculate isometric coordinates for start point
-    iso_x0 = scale * ((x0 - y0) * cos(M_PI / 6)) + data->width / 8;
-    iso_y0 = scale * ((x0 + y0) * sin(M_PI / 6) - z0) + data->height / 2;
+    iso_x0 = scale * ((x_start - y_start) * cos(M_PI / 6)) + data->width / 8;
+    iso_y0 = scale * ((x_start + y_start) * sin(M_PI / 6) - z0) + data->height / 2;
 
     // Calculate isometric coordinates for end point
-    iso_xn = scale * ((xn - yn) * cos(M_PI / 6)) + data->width / 8;
-    iso_yn = scale * ((xn + yn) * sin(M_PI / 6) - zn) + data->height / 2;
+    iso_xn = scale * ((x_end - y_end) * cos(M_PI / 6)) + data->width / 8;
+    iso_yn = scale * ((x_end + y_end) * sin(M_PI / 6) - zn) + data->height / 2;
 
     // Draw line between isometric points
     draw_line_bresenham(data, iso_x0, iso_y0, iso_xn, iso_yn, color);
