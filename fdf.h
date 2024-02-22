@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/21 11:59:27 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:51:25 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "libft/libft.h"
 #include "get_next_line/get_next_line.h"
 #define M_PI       3.14159265358979323846
-#define WINDOW_HEIGHT	1080
+#define WINDOW_HEIGHT	1920
 #define WINDOW_WIDTH	1920
 
 typedef struct s_map
@@ -50,5 +50,10 @@ void	free_map(t_map *map);
 int		**allocate_array(int height, int width);
 void	init_mlx_win_img(int **array, int height, int width);
 void	process_map(char *file_path, int height, int width);
-void	draw_isometric_point(t_data *data, int x, int y, int z, unsigned int color); 
+void	draw_isometric_point(t_data *data, int x, int y, int z, unsigned int color);
+
+void draw_line_bresenham(t_data *data, int x0, int y0, int xn, int yn, unsigned int color);
+void draw_isometric_line(t_data *data, int x0, int y0, int z0, int xn, int yn, int zn, unsigned int color);
+
+
 
