@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:42:38 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/22 22:29:36 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/23 07:32:58 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 //     my_mlx_pixel_put(data, iso_x, iso_y, color);
 // }
 
-void draw_line_bresenham(t_data *data, int x_start, int y_start, int x_end, int y_end, unsigned int color) {
+void draw_line_bresenham(t_data *data, int x_start, int y_start, int x_end, int y_end, unsigned int color) 
+{
     int dx;
 	int dy;
 	int sx;
@@ -58,7 +59,6 @@ void draw_line_bresenham(t_data *data, int x_start, int y_start, int x_end, int 
         dx = x_start - x_end;
         sx = -1;
     }
-
     if (y_end > y_start) 
 	{
         dy = y_end - y_start;
@@ -91,7 +91,8 @@ void draw_line_bresenham(t_data *data, int x_start, int y_start, int x_end, int 
     }
 }
 
-void draw_isometric_line(t_data *data, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color) {
+void draw_isometric_line(t_data *data, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color)
+{
     int iso_x_start;
 	int iso_y_start;
 	int iso_x_end;

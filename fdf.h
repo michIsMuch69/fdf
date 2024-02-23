@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/22 16:51:25 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/23 07:32:17 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,4 @@ void	draw_isometric_point(t_data *data, int x, int y, int z, unsigned int color)
 
 void draw_line_bresenham(t_data *data, int x0, int y0, int xn, int yn, unsigned int color);
 void draw_isometric_line(t_data *data, int x0, int y0, int z0, int xn, int yn, int zn, unsigned int color);
-
-
-
+void	all_draws(t_data *img, void *mlx_ptr, int **array, int height, int width);
