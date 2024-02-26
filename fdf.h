@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 20:11:43 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:25:54 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,3 @@ void	all_draws(t_data *img, void *mlx_ptr, int **array, int height, int width);
 void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color);
 
 void	draw_line_bresenham(t_data *data, t_line line);
-int	get_scale(int **array);

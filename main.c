@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 18:00:22 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:19:41 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_array(int **array, int height, int width)
 t_map *initialize_map(char *file_path, int *height, int *width) 
 {
     t_map *map;
-
+	
     *height = calculate_map_height(file_path);
     *width = calculate_map_width(file_path);
     map = allocate_map(*height, *width);

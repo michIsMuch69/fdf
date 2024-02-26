@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:42:38 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 20:13:00 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:33:05 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int
 	int		scale;
 	t_line	line;
 
-	scale = 20;
+	scale =5 ;
+	// scale = WINDOW_HEIGHT / map->height;
+
 	z_factor = 0.5;
 	iso_x_start = scale * ((x_start - y_start) * cos(M_PI / 6)) + MID_WINDOW_WIDTH;
 	iso_y_start = scale * ((x_start + y_start) * sin(M_PI / 4) - z_factor * z_start) + img->height / 3;
@@ -90,9 +92,7 @@ void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int
 	draw_line_bresenham(img, line);
 }
 
-int	get_scale(int **array)
-{
-}
+
 
 void	all_draws(t_data *img, void *mlx_ptr, int **array, int height, int width)
 {

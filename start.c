@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:41:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 16:05:57 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:31:07 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	init_mlx_win_img(int **array, int height, int width)
 		return ;
 	win_ptr = mlx_new_window(mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
 	all_draws(img, mlx_ptr, array, height, width);
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img->img, 0, 0);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img->img, -130, 0);
 	mlx_loop(mlx_ptr);
 }
