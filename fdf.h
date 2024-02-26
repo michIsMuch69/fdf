@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 20:25:54 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:26:07 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,19 @@ typedef struct s_iso
 
 }	t_iso;
 
+// creer variable d'environnement avec :
+// .win
+// .img
+// .addr
+// .env..
+// t_env *env;
+
+//     env.mlx = mlx_init();
+//     env.win = mlx_new_window(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
+//     env.img = mlx_new_image(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+//     env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
+
+//ET INIT DANS LE MAIN !!!!
 typedef struct s_line
 {
     int x_start;
@@ -69,6 +82,12 @@ typedef struct s_line
 	int	e2;
     unsigned int color;
 } t_line;
+
+typedef struct s_env
+{
+	void *mlx_ptr;
+	void *win_ptr;
+}			t_env;
 
 int		calculate_map_width(const char *file_path);
 void	free_tokens(char **tokens);

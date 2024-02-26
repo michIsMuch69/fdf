@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:42:38 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 20:33:05 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:41:12 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int
 	int		scale;
 	t_line	line;
 
-	scale =5 ;
+	scale = 15;
 	// scale = WINDOW_HEIGHT / map->height;
 
 	z_factor = 0.5;
