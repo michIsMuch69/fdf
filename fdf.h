@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 21:26:07 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:35:17 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	int		endian;
 	int		height;
 	int		width;
+	int		scale;
 }			t_data;
 
 typedef struct s_iso
@@ -106,3 +107,4 @@ void	all_draws(t_data *img, void *mlx_ptr, int **array, int height, int width);
 void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color);
 
 void	draw_line_bresenham(t_data *data, t_line line);
+int	*get_scale(int *scale);

@@ -6,27 +6,26 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:41:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/27 10:59:44 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:35:26 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// int	key_handler(int keycode, t_env *env)
-// {
-// 	if (keycode == 65307)
-// 		printf("dkdkd");
-// 	return (0);
-// }
 
 int	key_hook(int keycode, t_env *env)
 {
+	static int *scale;
 	
+	if(!scale)
+		scale = get_scale(NULL);
 	if(keycode == 65307)
 	{
 		mlx_destroy_window(env->mlx_ptr, env->win_ptr);
 		exit (0);
-	}	
+	}
+	if (keycode == 111)
+		*scale += 1;
 	return (0);
 }
 

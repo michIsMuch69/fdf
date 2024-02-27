@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:42:38 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/27 10:09:22 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:35:51 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,15 @@ void draw_line_bresenham(t_data *img, t_line line)
 	}
 }
 
-
+int	*get_scale(int *scale)
+{
+	static int *new_scale;
+	if(!new_scale)
+		new_scale = scale;
+	else if (new_scale)
+		return (new_scale);
+	return(NULL);
+}
 
 void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color)
 {
@@ -77,6 +85,7 @@ void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int
 	t_line	line;
 
 	scale = 15;
+	get_scale(&scale);
 	// scale = WINDOW_HEIGHT / map->height;
 
 	z_factor = 0.5;
