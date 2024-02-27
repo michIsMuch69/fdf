@@ -6,30 +6,38 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:41:25 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 21:59:23 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:59:44 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	key_handler(int keycode, t_env *env)
+// int	key_handler(int keycode, t_env *env)
+// {
+// 	if (keycode == 65307)
+// 		printf("dkdkd");
+// 	return (0);
+// }
+
+int	key_hook(int keycode, t_env *env)
 {
-	if (keycode == 65307)
-		printf("dkdkd");
+	
+	if(keycode == 65307)
+	{
+		mlx_destroy_window(env->mlx_ptr, env->win_ptr);
+		exit (0);
+	}	
 	return (0);
 }
+
 
 
 void	init_mlx_win_img(int **array, int height, int width)
 {
 	t_data	*img;
+	t_env	env;
 
-	t_env env;
-	
-	// void	*mlx_ptr;
-	// void	*win_ptr;
-
-	img = malloc(sizeof (t_data));
+	img = malloc(sizeof(t_data));
 	if (!img)
 		return ;
 	env.mlx_ptr = mlx_init();
@@ -38,6 +46,7 @@ void	init_mlx_win_img(int **array, int height, int width)
 	env.win_ptr = mlx_new_window(env.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
 	all_draws(img, env.mlx_ptr, array, height, width);
 	mlx_put_image_to_window(env.mlx_ptr, env.win_ptr, img->img, -130, 0);
-	mlx_hook(env.win_ptr, 17, 1L<<0, key_handler,  &env);
+	mlx_key_hook(env.win_ptr, key_hook, &env);
+	
 	mlx_loop(env.mlx_ptr);
 }
