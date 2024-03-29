@@ -6,105 +6,88 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/27 14:35:17 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:13:09 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "minilibx-linux/mlx.h"
-#include "libft/libft.h"
-#include "get_next_line/get_next_line.h"
-#define M_PI       3.14159265358979323846
-#define WINDOW_HEIGHT	1920
-#define WINDOW_WIDTH	1920
-#define MID_WINDOW_HEIGHT 	WINDOW_HEIGHT / 2 
-#define MID_WINDOW_WIDTH	WINDOW_WIDTH / 2
+#ifndef FDF_H
+# define FDF_H
 
-typedef struct s_map
-{
-	int	width;
-	int	height;
-	int	**vertices;
-}		t_map;
+# include "structures.h"
+# include <stddef.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <math.h>
+# include <unistd.h>
+# include "minilibx-linux/mlx.h"
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
 
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		height;
-	int		width;
-	int		scale;
-}			t_data;
+/*/////////////////////////////////////////////
+			FDF HEADER FILEs
+/////////////////////////////////////////////*/
 
-typedef struct s_iso
-{
-	int iso_x;
-	int iso_y;
-	int min_x;
-	int max_x;
-	int min_y;
-	int max_y;
+# define M_PI       3.14159265358979323846
+# define WINDOW_HEIGHT	1720
+# define WINDOW_WIDTH	1524
+# define INT_MAX	2147483647
+# define INT_MIN -2147483648
 
-}	t_iso;
+/*=============================bresenham.c===============================*/
 
-// creer variable d'environnement avec :
-// .win
-// .img
-// .addr
-// .env..
-// t_env *env;
+void		bresenham(t_data *img, t_iso_start start, \
+t_iso_start end, int color);
 
-//     env.mlx = mlx_init();
-//     env.win = mlx_new_window(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
-//     env.img = mlx_new_image(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-//     env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
+/*===============================draw.c==================================*/
 
-//ET INIT DANS LE MAIN !!!!
-typedef struct s_line
-{
-    int x_start;
-    int y_start;
-    int z_start;
-    int x_end;
-    int y_end;
-    int z_end;
-	int	diff_x;
-	int	diff_y;
-	int	slope_x;
-	int	slope_y;
-	int	err;
-	int	e2;
-    unsigned int color;
-} t_line;
+void		my_mlx_pixel_put(t_data *img, int x, int y, int color);
+void		get_iso_coord(t_start *start, t_iso_start *iso_start, t_map *map);
+void		draw_grid(t_draw_datas *draw_datas);
+void		render(t_draw_datas *draw_datas, t_env *env);
 
-typedef struct s_env
-{
-	void *mlx_ptr;
-	void *win_ptr;
-}			t_env;
+/*=============================fdf_utils.c===============================*/
 
-int		calculate_map_width(const char *file_path);
-void	free_tokens(char **tokens);
-int		calculate_map_height(const char *file_path);
-int		**read_map(int fd, int width, int height);
-t_map	*allocate_map(int height, int width);
-void	free_array(int **array, int height);
-void	free_map(t_map *map);
-int		**allocate_array(int height, int width);
-void	init_mlx_win_img(int **array, int height, int width);
-void	process_map(char *file_path, int height, int width);
-void	draw_isometric_point(t_data *data, int x, int y, int z, unsigned int color);
+int			calculate_map_width(const char *file_path);
+int			calculate_map_height(const char *file_path);
+void		ft_putstr(char *str);
+void		ft_puterr(char *str);
 
-//void	draw_line_bresenham(t_data *data, int x0, int y0, int xn, int yn, unsigned int color);
-void	all_draws(t_data *img, void *mlx_ptr, int **array, int height, int width);
-void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color);
+/*===============================free.c==================================*/
 
-void	draw_line_bresenham(t_data *data, t_line line);
-int	*get_scale(int *scale);
+void		free_tokens(char **tokens);
+void		free_env(t_env *env);
+void		free_image_data(t_env *env, t_data *img);
+void		free_array(t_draw_datas *draw_datas, int height);
+void		free_map(t_map *map);
+/*===============================hooks.c=================================*/
+
+int			key_hook(int keycode, t_env *env);
+
+/*===============================init.c==================================*/
+
+t_map		*initialize_map(char *file_path, int *height, int *width);
+t_env		*init_env(int width, int height, char *title);
+t_data		*init_img(t_env *env, int width, int height);
+void		init_bounds(t_draw_datas *draw_datas);
+
+/*===============================map.c===================================*/
+
+int			**read_map(int fd, t_draw_datas *draw_datas);
+int			process_map(t_draw_datas *draw_datas, char *file_path);
+
+/*=============================mapalloc.c================================*/
+
+t_map		*allocate_map(int height, int width);
+int			**allocate_array(int height, int width);
+
+/*==============================points.c=================================*/
+
+void		process_point(t_draw_datas *draw_datas, int x, int y);
+
+/*=============================projinfo.c=================================*/
+
+void		calculate_projection_size(t_draw_datas *draw_datas, t_env *env);
+void		center_image_in_window(t_env *env, t_data *img);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 07:06:59 by jedusser          #+#    #+#             */
-/*   Updated: 2023/12/06 15:34:05 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:07:25 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void(*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
+size_t	countwords(char const *s, char c);
+
 
 #endif

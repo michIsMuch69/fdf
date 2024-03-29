@@ -6,19 +6,21 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 09:40:43 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/22 18:32:00 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/03/29 18:29:47 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	countwords(char const *s, char c)
+size_t	countwords(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;
 
 	i = 0;
 	count = 0;
+	if (s == NULL || s == 0)
+		return (0);
 	while (s[i] != '\0')
 	{
 		if (s[i] != c)

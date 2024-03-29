@@ -5,46 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 14:55:26 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/22 18:06:11 by jedusser         ###   ########.fr       */
+/*   Created: 2024/03/25 13:08:33 by jedusser          #+#    #+#             */
+/*   Updated: 2024/03/29 17:09:10 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	process_line(char *line, int **array, int y, int width) 
+void	init_points(t_draw_datas *draw_datas, int x, int y, t_iso_start *iso_s)
 {
-    char	**line_vertices;
-    int		x = 0;
-    int		vertice;
+	t_start		start;
 
-    line_vertices = ft_split(line, ' ');
-    while (line_vertices[x] != NULL && x < width) 
-	{
-        vertice = ft_atoi(line_vertices[x]);
-        array[y][x] = vertice;
-        x++;
-    }
-    free_tokens(line_vertices);
+	start.x = x;
+	start.y = y;
+	start.z = draw_datas->array[y][x];
+	get_iso_coord(&start, iso_s, &draw_datas->map);
+	iso_s->x -= draw_datas->bounds->min_x;
+	iso_s->y -= draw_datas->bounds->min_y;
 }
 
-int	**read_map(int fd, int width, int height) 
+void	process_point(t_draw_datas *draw_datas, int x, int y)
 {
-    int y;
-    int **array;
-    char *line;
-	
-	line = get_next_line(fd);
-    array = allocate_array(height, width);
-	y = 0;
-    while (line != NULL && y < height) 
-	{
-        process_line(line, array, y, width);
-        free(line);
-        y++;
-		line = get_next_line(fd);
-    }
-    close(fd);
-    return array;
-}
+	t_start		end;
+	t_iso_start	iso_start;
+	t_iso_start	iso_end;
 
+	init_points(draw_datas, x, y, &iso_start);
+	if (x + 1 < draw_datas->map.width)
+	{
+		end.x = x + 1;
+		end.y = y;
+		end.z = draw_datas->array[y][x + 1];
+		get_iso_coord(&end, &iso_end, &draw_datas->map);
+		iso_end.x -= draw_datas->bounds->min_x;
+		iso_end.y -= draw_datas->bounds->min_y;
+		bresenham(draw_datas->img, iso_start, iso_end, 0xFF0000);
+	}
+	if (y + 1 < draw_datas->map.height)
+	{
+		end.x = x;
+		end.y = y + 1;
+		end.z = draw_datas->array[y + 1][x];
+		get_iso_coord(&end, &iso_end, &draw_datas->map);
+		iso_end.x -= draw_datas->bounds->min_x;
+		iso_end.y -= draw_datas->bounds->min_y;
+		bresenham(draw_datas->img, iso_start, iso_end, 0xFF0000);
+	}
+}

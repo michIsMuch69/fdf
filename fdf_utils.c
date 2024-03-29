@@ -6,11 +6,35 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:08:40 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/20 10:44:01 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:53:22 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_putstr(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
+void	ft_puterr(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		write(2, &str[i], 1);
+		i++;
+	}
+}
 
 int	calculate_map_width(const char *file_path)
 {
@@ -29,6 +53,7 @@ int	calculate_map_width(const char *file_path)
 		close (fd);
 		return (0);
 	}
+	
 	tokens = ft_split(line, ' ');
 	while (tokens && tokens[width] != NULL)
 		width++;
@@ -48,7 +73,8 @@ int	calculate_map_height(const char *file_path)
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("Erreur lors de l'ouverture du fichier");
+		ft_puterr("Erreur lors de l'ouverture du fichier");
+		exit (EXIT_FAILURE);
 		return (-1);
 	}
 	line = get_next_line(fd);

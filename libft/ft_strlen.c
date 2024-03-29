@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:13:50 by jedusser          #+#    #+#             */
-/*   Updated: 2023/12/01 12:12:29 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/03/29 18:13:45 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlen(const char *str)
 	size_t	fullsize;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	fullsize = i;

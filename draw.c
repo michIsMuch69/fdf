@@ -5,136 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 12:42:38 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/27 14:35:51 by jedusser         ###   ########.fr       */
+/*   Created: 2024/03/11 12:40:42 by jedusser          #+#    #+#             */
+/*   Updated: 2024/03/29 17:07:11 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-//formules et fonctions pour dessiner ce que je veux
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
 	char	*dst;
-	dst = img->addr + (y * img->line_length + x * img->bits_per_pixel / 8);
-	*(unsigned int*)dst = color;
-}
 
-void draw_line_bresenham(t_data *img, t_line line) 
-{
-	if (line.x_end > line.x_start)
+	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 	{
-		line.diff_x = line.x_end - line.x_start;
-		line.slope_x = 1;
-	} 
-	else 
-	{
-		line.diff_x = line.x_start - line.x_end;
-		line.slope_x = -1;
-	}
-	if (line.y_end > line.y_start) 
-	{
-		line.diff_y = line.y_end - line.y_start;
-		line.slope_y = 1;
-	} 
-	else 
-	{
-		line.diff_y = line.y_start - line.y_end;
-		line.slope_y = -1;
-	}
-	line.err = line.diff_x - line.diff_y;
-	while (1)
-	{
-		my_mlx_pixel_put(img, line.x_start, line.y_start, line.color); 
-		if (line.x_start == line.x_end && line.y_start == line.y_end) 
-			break;
-		line.e2 = 2 * line.err;
-		if (line.e2 >= -line.diff_y) 
-		{
-			line.err -= line.diff_y;
-			line.x_start += line.slope_x;
-		}
-		if (line.e2 <= line.diff_x) 
-		{
-			if (line.y_start == line.y_end)
-				break;
-			line.err += line.diff_x;
-			line.y_start += line.slope_y;
-		}
+		dst = img->addr + (y * img->line_length + x * \
+		(img->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
 	}
 }
 
-int	*get_scale(int *scale)
+void	get_iso_coord(t_start *start, t_iso_start *iso_start, t_map *map)
 {
-	static int *new_scale;
-	if(!new_scale)
-		new_scale = scale;
-	else if (new_scale)
-		return (new_scale);
-	return(NULL);
-}
-
-void draw_isometric_line(t_data *img, int x_start, int y_start, int z_start, int x_end, int y_end, int z_end, unsigned int color)
-{
-	int		iso_x_start;
-	int		iso_y_start;
-	int		iso_x_end;
-	int		iso_y_end;
+	float	scale;
 	float	z_factor;
-	int		scale;
-	t_line	line;
 
-	scale = 15;
-	get_scale(&scale);
-	// scale = WINDOW_HEIGHT / map->height;
-
-	z_factor = 0.5;
-	iso_x_start = scale * ((x_start - y_start) * cos(M_PI / 6)) + MID_WINDOW_WIDTH;
-	iso_y_start = scale * ((x_start + y_start) * sin(M_PI / 4) - z_factor * z_start) + img->height / 3;
-	iso_x_end = scale * ((x_end - y_end) * cos(M_PI / 6)) + MID_WINDOW_WIDTH;
-	iso_y_end = scale * ((x_end + y_end) * sin(M_PI / 4) - z_factor * z_end) + img->height / 3;
-	line.x_start = iso_x_start;
-	line.y_start = iso_y_start;
-	line.x_end = iso_x_end;
-	line.y_end = iso_y_end;
-	line.color = color;
-	draw_line_bresenham(img, line);
+	if (map->height < 50 && map->width < 50)
+		scale = 30.0;
+	else if (map->height <= 100 && map->width <= 100)
+		scale = 8.0;
+	else if (map->height <= 200 && map->width <= 200)
+		scale = 5.0;
+	else if (map->height <= 300 && map->width <= 300)
+		scale = 1.5;
+	else if (map->height > 300 && map->width > 300)
+		scale = 0.5;
+	else
+		scale = 40;
+	z_factor = 3.5;
+	iso_start->x = scale * (start->x - start->y) * cos(M_PI / 6);
+	iso_start->y = scale * (start->x + start->y) * sin(M_PI / 4) \
+	- z_factor * start->z;
 }
 
-
-
-void	all_draws(t_data *img, void *mlx_ptr, int **array, int height, int width)
+void	process_row(t_draw_datas *draw_datas, int y)
 {
 	int	x;
-	int	y;
 
-	img->img = mlx_new_image(mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
-	img->height = WINDOW_HEIGHT;
-	img->width = WINDOW_WIDTH;
-	y = 0;
-	while (y < height - 1) 
-	{
-		x = 0;
-		while (x < width - 1) 
-		{
-			draw_isometric_line(img, x, y, array[y][x], x + 1, y, array[y][x + 1], 0xFF0000);//white
-			// trace sur l'axe x
-			draw_isometric_line(img, x, y, array[y][x], x, y + 1, array[y + 1][x], 0xFF0000);//red
-			// trac sur l'axe y
-			x++;
-		}
-		//derniere colonne de chaque rangege
-		draw_isometric_line(img, x, y, array[y][x], x, y + 1, array[y + 1][x], 0xFF0000);//blue
-		//axe y de front/
-		y++;
-	}
-	// derniere rangee
 	x = 0;
-	while (x < width - 1)
+	while (x < draw_datas->map.width)
 	{
-		draw_isometric_line(img, x, y, array[y][x], x + 1, y, array[y][x + 1], 0xFF0000);//green
-		//axe x de front.
+		process_point(draw_datas, x, y);
 		x++;
 	}
+}
+
+void	draw_grid(t_draw_datas *draw_datas)
+{
+	int	y;
+
+	y = 0;
+	while (y < draw_datas->map.height)
+	{
+		process_row(draw_datas, y);
+		y++;
+	}
+}
+
+void	render(t_draw_datas *draw_datas, t_env *env)
+{
+	draw_grid(draw_datas);
+	center_image_in_window(env, draw_datas->img);
 }

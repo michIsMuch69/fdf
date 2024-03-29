@@ -5,75 +5,73 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 14:59:41 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/26 20:19:41 by jedusser         ###   ########.fr       */
+/*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
+/*   Updated: 2024/03/29 17:18:29 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	print_array(int **array, int height, int width)
+void	cleanup(t_draw_datas *draw_datas)
 {
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < height)
-	{
-		x = 0;
-		while (x < width)
-		{
-			printf("%d ", array[y][x]);
-			x++;
-		}
-		printf("\n");
-		printf("\n");
-		y++;
-	}
+	free(draw_datas->bounds);
+	free_array(draw_datas, draw_datas->map.height);
+	free_map(&draw_datas->map);
 }
-t_map *initialize_map(char *file_path, int *height, int *width) 
+
+int	close_all(t_env *env)
 {
-    t_map *map;
+	free_env(env);
+	write(1, "Bye!\n", 5);
+	exit (0);
+	return (0);
+}
+
+int	file_is_valid(char *file_path)
+{
+	int		fd;
+	int		counter;
+	char	*line;
 	
-    *height = calculate_map_height(file_path);
-    *width = calculate_map_width(file_path);
-    map = allocate_map(*height, *width);
-    if (map != NULL) 
+	//parse_file_path
+	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
+		return (ft_puterr("fichier invalide"), -1);
+	line = get_next_line(fd);
+	if (!line)
+		return (ft_puterr("error"), close(fd), -1);
+	counter = 1;
+	while(line)
 	{
-        map->width = *width;
-        map->height = *height;
-    }
-    return map;
+		line = get_next_line(fd);
+		counter++;
+	}	
+	close(fd);
+	return (counter - 1);
 }
 
-
-void process_map(char *file_path, int height, int width) 
+int	main(int argc, char **argv)
 {
-    int fd;
-    int **array;
+	t_draw_datas	draw_datas;
+	t_env			*env;
 
-    fd = open(file_path, O_RDONLY);
-    if (fd == -1) 
-		return ;
-    array = read_map(fd, width, height);
-    printf("Width  de map  : %d\n", width);
-    printf("Height de map : %d\n", height);
-    print_array(array, height, width);
-    init_mlx_win_img(array, height, width);
-    close(fd);
-    free_array(array, height);
-}
-
-int main(int argc, char **argv) 
-{
-    t_map *map;
-    int height, width;
-    if (argc != 2) 
+	if (argc != 2)
 		return (-1);
-    map = initialize_map(argv[1], &height, &width);
-    if (map == NULL) 
-		return (-1); 
-    process_map(argv[1], height, width);
-    free_map(map);
-    return 0;
+	draw_datas.map.height= file_is_valid(argv[1]);
+	if (draw_datas.map.height== -1)
+		return (-1);
+	if(process_map(&draw_datas, argv[1]) == -1)
+		return (-1); // all is free
+	env = init_env(WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
+	calculate_projection_size(&draw_datas, env);
+	draw_datas.img = init_img(env, draw_datas.bounds->max_x - \
+	draw_datas.bounds->min_x + 1, draw_datas.bounds->max_y - \
+	draw_datas.bounds->min_y + 1);
+	render(&draw_datas, env);
+	cleanup(&draw_datas);
+	mlx_key_hook(env->win_ptr, key_hook, env);
+	mlx_hook(env->win_ptr, 17, 1L << 0, close_all, env);
+	free_image_data(env, draw_datas.img);
+	mlx_loop(env->mlx_ptr);
+	return (0);
 }
