@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:08:33 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 17:09:10 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:22:11 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	process_point(t_draw_datas *draw_datas, int x, int y)
 		get_iso_coord(&end, &iso_end, &draw_datas->map);
 		iso_end.x -= draw_datas->bounds->min_x;
 		iso_end.y -= draw_datas->bounds->min_y;
-		bresenham(draw_datas->img, iso_start, iso_end, 0xFF0000);
+		bresenham(draw_datas->img, iso_start, iso_end, 0xFFFFFF);
 	}
 	if (y + 1 < draw_datas->map.height)
 	{
@@ -49,6 +49,6 @@ void	process_point(t_draw_datas *draw_datas, int x, int y)
 		get_iso_coord(&end, &iso_end, &draw_datas->map);
 		iso_end.x -= draw_datas->bounds->min_x;
 		iso_end.y -= draw_datas->bounds->min_y;
-		bresenham(draw_datas->img, iso_start, iso_end, 0xFF0000);
+		bresenham(draw_datas->img, iso_start, iso_end, 0xFFFFFF);
 	}
 }
