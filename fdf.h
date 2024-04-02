@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 17:13:09 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:51:34 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		free_tokens(char **tokens);
 void		free_env(t_env *env);
 void		free_image_data(t_env *env, t_data *img);
 void		free_array(t_draw_datas *draw_datas, int height);
-void		free_map(t_map *map);
+void		free_map(int **vertices, int size);
 /*===============================hooks.c=================================*/
 
 int			key_hook(int keycode, t_env *env);

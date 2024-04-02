@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:57:34 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 17:07:33 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:19:01 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,19 @@ void	free_array(t_draw_datas *draw_datas, int height)
 	free(draw_datas->array);
 }
 
-void	free_map(t_map *map)
+void	free_map(int **vertices, int size)
 {
 	int	y;
 
 	y = 0;
-	if (map == NULL)
+	if (vertices == NULL)
 		return ;
-	while (y < map->height)
+	while (y < size)
 	{
-		free(map->vertices[y]);
+		free(vertices[y]);
 		y++;
 	}
-	free(map->vertices);
-	free(map);
+	free(vertices);
 }
 
 void	free_env(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 18:30:35 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:21:46 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,15 @@ int	get_array(t_draw_datas *draw_datas, int fd, char *tmp, int i)
 	draw_datas->map.width =(int)countwords(tmp, ' ');
 	if (draw_datas->map.width == 0)
 			return(free_array(draw_datas, draw_datas->map.height), -1);
-	printf("count = %d\n", draw_datas->map.width);
 	process_line(tmp, draw_datas, i);
+	//printf("%s\n", tmp);
 	free(tmp);	
 	i++;
 	while(tmp || i < draw_datas->map.height)
 	{
 		tmp = get_next_line(fd);
-		printf("count = %zu\n", countwords(tmp, ' '));
 		if (!tmp)
-			return (-1);
+			break ;
 		process_line(tmp, draw_datas, i);
 		if((int)countwords(tmp, ' ') != draw_datas->map.width && (int)countwords(tmp, ' ') != 0)
 		{
@@ -82,19 +81,9 @@ int	process_map(t_draw_datas *draw_datas, char *file_path)
 	if (fd == -1 || !draw_datas->array)
 		return (-1);
 	i = 0;
-	int x = 0;
 	if(get_array(draw_datas, fd, tmp, i)== -1)
 		return (-1);
-	while (i < draw_datas->map.height)
-	{
-		while (x < draw_datas->map.width)
-		{
-			printf("%d ",draw_datas->array[i][x]);
-			x++;
-		}
-		printf("\n");
-		i++;
-	}
+	
 	close(fd);
 	return (0);
 }
