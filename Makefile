@@ -6,12 +6,12 @@
 #    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 11:46:43 by jedusser          #+#    #+#              #
-#    Updated: 2024/03/27 11:56:44 by jedusser         ###   ########.fr        #
+#    Updated: 2024/04/02 13:40:22 by jedusser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-SRC = bresenham.c draw.c fdf_utils.c free.c hooks.c init.c main.c mapalloc.c points.c projinfo.c map.c
+SRC = bresenham.c draw.c fdf_utils.c free.c hooks.c init.c main.c points.c projinfo.c map.c
 GNL_SRC = get_next_line/get_next_line_utils.c get_next_line/get_next_line.c
 
 

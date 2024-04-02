@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 09:39:15 by jedusser          #+#    #+#             */
-/*   Updated: 2024/02/19 15:12:08 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:35:16 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ char	*gnl_ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (start > gnl_ft_strlen(s))
-		return (malloc(1));
 	if (len > gnl_ft_strlen(s + start))
 		len = gnl_ft_strlen(s + start);
 	str = malloc((len + 1) * sizeof(char));

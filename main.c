@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/02 12:50:47 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:51:58 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int	file_is_valid(char *file_path)
 		return (ft_puterr("Invalid file"), -1);
 	line = get_next_line(fd);
 	if (!line)
-		return (ft_puterr("error"), close(fd), -1);
+		return (ft_puterr("Map is empty"), close(fd), -1);
 	counter = 1;
 	free (line);
 	while (line)
 	{
 		line = get_next_line(fd);
-		free(line);
 		counter++;
+		free(line);
 	}
 	close(fd);
 	return (counter - 1);

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/02 10:51:34 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:42:38 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void		render(t_draw_datas *draw_datas, t_env *env);
 
 /*=============================fdf_utils.c===============================*/
 
-int			calculate_map_width(const char *file_path);
-int			calculate_map_height(const char *file_path);
 void		ft_putstr(char *str);
 void		ft_puterr(char *str);
 
@@ -75,11 +73,6 @@ void		init_bounds(t_draw_datas *draw_datas);
 
 int			**read_map(int fd, t_draw_datas *draw_datas);
 int			process_map(t_draw_datas *draw_datas, char *file_path);
-
-/*=============================mapalloc.c================================*/
-
-t_map		*allocate_map(int height, int width);
-int			**allocate_array(int height, int width);
 
 /*==============================points.c=================================*/
 
