@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/02 14:54:24 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:57:20 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	process_line(char *line, t_draw_datas *draw_datas, int i)
 	{
 		vertice = ft_atoi(line_vertices[x]);
 		if (vertice > 1000)
-		{
 			vertice = vertice * 0.5;
-		}
 		draw_datas->array[i][x] = vertice;
 		x++;
 	}
@@ -73,14 +71,7 @@ int	process_map(t_draw_datas *draw_datas, char *file_path)
 
 	tmp = NULL;
 	fd = open(file_path, O_RDONLY);
-	printf("height === %d\n", draw_datas->map.height);
 	draw_datas->array = malloc(draw_datas->map.height * sizeof(int *));
-	int j = 0;
-	while (j < draw_datas->map.height)
-	{
-		draw_datas->array[j] = NULL;
-		j++;
-	}
 	if (fd == -1 || !draw_datas->array)
 		return (-1);
 	i = 0;
