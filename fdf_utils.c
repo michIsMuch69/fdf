@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:08:40 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 14:53:22 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:49:07 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ int	calculate_map_width(const char *file_path)
 		return (-1);
 	line = get_next_line(fd);
 	if (line == NULL)
-	{
-		close (fd);
-		return (0);
-	}
-	
+		return (close(fd), 0);
 	tokens = ft_split(line, ' ');
 	while (tokens && tokens[width] != NULL)
 		width++;

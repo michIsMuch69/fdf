@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/02 11:33:29 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:50:47 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	file_is_valid(char *file_path)
 	int		fd;
 	int		counter;
 	char	*line;
-	
-	//parse_file_path
+
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_puterr("Invalid file"), -1);
@@ -40,8 +39,8 @@ int	file_is_valid(char *file_path)
 	if (!line)
 		return (ft_puterr("error"), close(fd), -1);
 	counter = 1;
-	free(line);
-	while(line)
+	free (line);
+	while (line)
 	{
 		line = get_next_line(fd);
 		free(line);
@@ -59,13 +58,10 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (-1);
 	draw_datas.map.height = file_is_valid(argv[1]);
-	if (draw_datas.map.height== -1)
+	if (draw_datas.map.height == -1)
 		return (-1);
-	if(process_map(&draw_datas, argv[1]) == -1)
-	{
-		printf("height ---> %d\n", draw_datas.map.height);
-		return (-1); // all is free
-	}
+	if (process_map(&draw_datas, argv[1]) == -1)
+		return (-1);
 	env = init_env(WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
 	calculate_projection_size(&draw_datas, env);
 	draw_datas.img = init_img(env, draw_datas.bounds->max_x - \
