@@ -6,17 +6,11 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/02 13:51:58 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:14:02 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	cleanup(t_draw_datas *draw_datas)
-{
-	free(draw_datas->bounds);
-	free_map(draw_datas->array, draw_datas->map.height);
-}
 
 int	close_all(t_env *env)
 {
@@ -63,12 +57,10 @@ int	main(int argc, char **argv)
 	if (process_map(&draw_datas, argv[1]) == -1)
 		return (-1);
 	env = init_env(WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
-	calculate_projection_size(&draw_datas, env);
-	draw_datas.img = init_img(env, draw_datas.bounds->max_x - \
-	draw_datas.bounds->min_x + 1, draw_datas.bounds->max_y - \
-	draw_datas.bounds->min_y + 1);
+	//calculate_projection_size(&draw_datas, env);
+	draw_datas.img = init_img(env, draw_datas.img->width, draw_datas.img->height);
 	render(&draw_datas, env);
-	cleanup(&draw_datas);
+	free_map(draw_datas.array, draw_datas.map.height);
 	mlx_key_hook(env->win_ptr, key_hook, env);
 	mlx_hook(env->win_ptr, 17, 1L << 0, close_all, env);
 	free_image_data(env, draw_datas.img);
