@@ -6,7 +6,7 @@
 #    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 11:46:43 by jedusser          #+#    #+#              #
-#    Updated: 2024/04/02 13:40:22 by jedusser         ###   ########.fr        #
+#    Updated: 2024/04/03 09:23:51 by jedusser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,22 +19,19 @@ OBJ_DIR = obj/
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o) $(GNL_SRC:%.c=%.o) 
 
 CC = gcc
-CFLAGS = -g3 -Wextra -Wall -Werror -Ilibft -Iminilibx-linux -Ift_printf
+CFLAGS = -g3 -Wextra -Wall -Werror -Ilibft -Iminilibx-linux 
 
 
-all: mlx ft_printf libft $(NAME)
+all: mlx  libft $(NAME)
 
 mlx:
 	make -C ./minilibx-linux
-
-ft_printf:
-	make -C ./ft_printf
 
 libft:
 	make -C ./libft
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -Llibft -lft -Lft_printf -lftprintf -Lminilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(OBJ) -Llibft -lft -Lminilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(@D)
@@ -43,14 +40,12 @@ $(OBJ_DIR)%.o: %.c
 clean:
 	rm -rf $(OBJ_DIR)
 	make clean -C ./minilibx-linux
-	make clean -C ./ft_printf
 	make clean -C ./libft
 
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C ./ft_printf
 	make fclean -C ./libft
 
 re: fclean all
 
-.PHONY: all clean fclean re mlx ft_printf libft
+.PHONY: all clean fclean re mlx libft

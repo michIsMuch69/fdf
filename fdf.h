@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/02 13:42:38 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/03 09:39:20 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "structures.h"
 # include <stddef.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
 # include <unistd.h>
@@ -30,7 +29,7 @@
 
 # define M_PI       3.14159265358979323846
 # define WINDOW_HEIGHT	1720
-# define WINDOW_WIDTH	1524
+# define WINDOW_WIDTH	1720
 # define INT_MAX	2147483647
 # define INT_MIN -2147483648
 

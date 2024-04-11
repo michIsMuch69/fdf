@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:57:58 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 17:09:40 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:23:43 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ void	calculate_projection_size(t_draw_datas *draw_datas, t_env *env)
 
 void	center_image_in_window(t_env *env, t_data *img)
 {
-	int	offset_x;
-	int	offset_y;
+	// int	offset_x;
+	// int	offset_y;
 
-	offset_x = (WINDOW_WIDTH - img->width) / 2;
-	offset_y = (WINDOW_HEIGHT - img->height) / 2;
+	// offset_x = (WINDOW_WIDTH - img->width) / 2;
+	// offset_y = (WINDOW_HEIGHT - img->height) / 2;
+	// mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, 
+	// img->img, offset_x, offset_y);
 	mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, \
-	img->img, offset_x, offset_y);
+	img->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:40:42 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 17:07:11 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:47:53 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x >= 0 && x < img->width && y >= 0 && y < img->height)
+	if (x >= 0 && x < img->width && y >= 0 && y < img->height )
 	{
 		dst = img->addr + (y * img->line_length + x * \
 		(img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
+	
 }
 
 void	get_iso_coord(t_start *start, t_iso_start *iso_start, t_map *map)
@@ -35,16 +36,19 @@ void	get_iso_coord(t_start *start, t_iso_start *iso_start, t_map *map)
 		scale = 8.0;
 	else if (map->height <= 200 && map->width <= 200)
 		scale = 5.0;
-	else if (map->height <= 300 && map->width <= 300)
-		scale = 1.5;
+	else if (map->height <= 500 && map->width <= 500)
+		scale = 2.5;
 	else if (map->height > 300 && map->width > 300)
 		scale = 0.5;
 	else
 		scale = 40;
-	z_factor = 3.5;
-	iso_start->x = scale * (start->x - start->y) * cos(M_PI / 6);
-	iso_start->y = scale * (start->x + start->y) * sin(M_PI / 4) \
-	- z_factor * start->z;
+	start->x -= map->width / 2.0f;
+	start->y -= map->height / 2.0f;
+	scale = fmin((float)WINDOW_HEIGHT / (map->height + map->width), (float)WINDOW_HEIGHT / (map->height + map->width));
+	z_factor = sqrtf(2 / 6.f);
+	iso_start->x = (scale * (start->x - start->y) * cos(M_PI / 6)) + (WINDOW_WIDTH / 2);
+	iso_start->y = (scale * ((start->x + start->y) * sin(M_PI / 4) \
+	- z_factor * start->z)) + (WINDOW_HEIGHT / 2);
 }
 
 void	process_row(t_draw_datas *draw_datas, int y)

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:52:14 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 16:58:23 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:23:08 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_data	*init_img(t_env *env, int width, int height)
 	}
 	img->width = width;
 	img->height = height;
+	img->width = WINDOW_WIDTH;
+	img->height = WINDOW_HEIGHT;
 	img->img = mlx_new_image(env->mlx_ptr, img->width, img->height);
 	if (!img->img)
 	{
