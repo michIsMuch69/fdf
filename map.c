@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/09 14:37:38 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:47:32 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	process_line(char *line, t_draw_datas *draw_datas, int i)
 	while (x < draw_datas->map.width)
 	{
 		vertice = ft_atoi(line_vertices[x]);
-		// if (vertice > 1000)
-		// 	vertice = vertice * 0.5;
 		draw_datas->array[i][x] = vertice;
 		x++;
 	}

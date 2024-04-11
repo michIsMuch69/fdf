@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/11 10:14:02 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:40:52 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	main(int argc, char **argv)
 	if (process_map(&draw_datas, argv[1]) == -1)
 		return (-1);
 	env = init_env(WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
-	//calculate_projection_size(&draw_datas, env);
-	draw_datas.img = init_img(env, draw_datas.img->width, draw_datas.img->height);
+	draw_datas.img = init_img(env);
 	render(&draw_datas, env);
 	free_map(draw_datas.array, draw_datas.map.height);
 	mlx_key_hook(env->win_ptr, key_hook, env);

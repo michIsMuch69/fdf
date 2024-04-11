@@ -6,24 +6,19 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:52:14 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/11 10:15:45 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:47:14 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_data	*init_img(t_env *env, int width, int height)
+t_data	*init_img(t_env *env)
 {
 	t_data	*img;
 
 	img = malloc(sizeof(t_data));
 	if (!img)
-	{
-		free(img);
-		return (NULL);
-	}
-	img->width = width;
-	img->height = height;
+		return (free(img), (NULL));
 	img->width = WINDOW_WIDTH;
 	img->height = WINDOW_HEIGHT;
 	img->img = mlx_new_image(env->mlx_ptr, img->width, img->height);
@@ -60,14 +55,14 @@ t_env	*init_env(int width, int height, char *title)
 	return (env);
 }
 
-void	init_bounds(t_draw_datas *draw_datas)
-{
-	draw_datas->bounds = malloc(sizeof(t_bounds));
-	if (draw_datas->bounds != NULL)
-	{
-		draw_datas->bounds->min_x = INT_MAX;
-		draw_datas->bounds->max_x = INT_MIN;
-		draw_datas->bounds->min_y = INT_MAX;
-		draw_datas->bounds->max_y = INT_MIN;
-	}
-}
+// void	init_bounds(t_draw_datas *draw_datas)
+// {
+// 	draw_datas->bounds = malloc(sizeof(t_bounds));
+// 	if (draw_datas->bounds != NULL)
+// 	{
+// 		draw_datas->bounds->min_x = INT_MAX;
+// 		draw_datas->bounds->max_x = INT_MIN;
+// 		draw_datas->bounds->min_y = INT_MAX;
+// 		draw_datas->bounds->max_y = INT_MIN;
+// 	}
+// }

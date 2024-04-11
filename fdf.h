@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:12:47 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/03 09:39:20 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:38:02 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			key_hook(int keycode, t_env *env);
 
 t_map		*initialize_map(char *file_path, int *height, int *width);
 t_env		*init_env(int width, int height, char *title);
-t_data		*init_img(t_env *env, int width, int height);
+t_data		*init_img(t_env *env);
 void		init_bounds(t_draw_datas *draw_datas);
 
 /*===============================map.c===================================*/

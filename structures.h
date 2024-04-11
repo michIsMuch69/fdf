@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:49:55 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/11 10:15:32 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:48:18 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ struct	s_map
 };
 struct s_draw_datas
 {
-	t_bounds	*bounds;
 	t_data		*img;
 	t_map		map;
 	int			**array;
@@ -59,7 +58,6 @@ struct	s_env
 	void	*mlx_ptr;
 	void	*win_ptr;
 };
-
 
 struct	s_data
 {
@@ -84,14 +82,6 @@ struct	s_iso_start
 {
 	int	x;
 	int	y;
-};
-
-struct s_bounds
-{
-	int	max_y;
-	int	max_x;	
-	int	min_y;	
-	int	min_x;	
 };
 
 struct	s_iso_end
