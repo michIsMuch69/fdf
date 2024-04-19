@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
+#    By: jean-micheldusserre <jean-micheldusserr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 11:46:43 by jedusser          #+#    #+#              #
-#    Updated: 2024/04/11 10:43:26 by jedusser         ###   ########.fr        #
+#    Updated: 2024/04/19 13:01:18 by jean-michel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ)
 	make clean -C ./minilibx-linux
 	make clean -C ./libft
 
