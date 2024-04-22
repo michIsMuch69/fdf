@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/11 10:47:32 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:15:51 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,14 @@ int	process_map(t_draw_datas *draw_datas, char *file_path)
 
 	tmp = NULL;
 	fd = open(file_path, O_RDONLY);
-	draw_datas->array = malloc(draw_datas->map.height * sizeof(int *));
-	if (fd == -1 || !draw_datas->array)
+	if (fd == -1)
 		return (-1);
+	draw_datas->array = malloc(draw_datas->map.height * sizeof(int *));
+	if (!draw_datas->array)
+		return (close(fd), -1);
 	i = 0;
 	if (get_array(draw_datas, fd, tmp, i) == -1)
-		return (-1);
+		return (close(fd), -1);
 	close(fd);
 	return (0);
 }
