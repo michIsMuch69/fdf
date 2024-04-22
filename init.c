@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:52:14 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/22 10:31:14 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:34:30 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ t_env	*init_env(int width, int height, char *title)
 	}
 	return (env);
 }
-

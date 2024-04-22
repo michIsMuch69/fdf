@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/22 10:32:37 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:34:46 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	main(int argc, char **argv)
 		return (free_array(&draw_datas, draw_datas.map.height), -1);
 	draw_datas.img = init_img(env);
 	if (!draw_datas.img)
-		return (free_env(env), free_array(&draw_datas, draw_datas.map.height), -1);
+		return (free_env(env), \
+				free_array(&draw_datas, draw_datas.map.height), -1);
 	render(&draw_datas, env);
 	free_map(draw_datas.array, draw_datas.map.height);
 	mlx_key_hook(env->win_ptr, key_hook, env);
