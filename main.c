@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/22 10:34:46 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:00:18 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,19 @@ int	file_is_valid(char *file_path)
 	close(fd);
 	return (counter - 1);
 }
+int check_data(t_draw_datas *draw_datas)
+{
+	int i;
 
+	i = 0;
+    while (i < draw_datas->map.height)
+	{
+        if (draw_datas->array[i] == NULL)
+			return (free_array(draw_datas, draw_datas->map.height), -1);
+		i++;
+    }
+    return (0);
+}
 int	main(int argc, char **argv)
 {
 	t_draw_datas	draw_datas;
@@ -55,6 +67,8 @@ int	main(int argc, char **argv)
 	if (draw_datas.map.height == -1)
 		return (-1);
 	if (process_map(&draw_datas, argv[1]) == -1)
+		return (-1);
+	if (check_data(&draw_datas) == -1)
 		return (-1);
 	env = init_env(WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
 	if (!env)

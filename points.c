@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:08:33 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/11 10:47:59 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:01:17 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	init_points(t_draw_datas *draw_datas, int x, int y, t_iso_start *iso_s)
 {
 	t_start		start;
-
 	start.x = x;
 	start.y = y;
 	start.z = draw_datas->array[y][x];

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:57:34 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/22 09:30:21 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:01:05 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_array(t_draw_datas *draw_datas, int height)
 	i = 0;
 	if (draw_datas->array == NULL)
 		return ;
-	while (i < height)
+	while (draw_datas->array[i] && i < height)
 	{
 		free(draw_datas->array[i]);
 		i++;
