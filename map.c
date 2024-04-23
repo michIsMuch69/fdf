@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/23 13:44:45 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:46:48 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	process_line(char *line, t_draw_datas *draw_datas, int i)
 	long	vertice;
 
 	x = 0;
+	line_vertices = NULL;
 	draw_datas->array[i] = ft_calloc((size_t) draw_datas->map.width, \
 														sizeof(int));
 	if (!draw_datas->array[i])
@@ -30,11 +31,8 @@ int	process_line(char *line, t_draw_datas *draw_datas, int i)
 	{
 		vertice = ft_atol(line_vertices[x]);
 		if (vertice > INT_MAX || vertice < INT_MIN)
-		{
-			ft_puterr("Bad entry in map\n");
-			return (-1);
-		}
-		draw_datas->array[i][x] = vertice;
+			return (free_tokens(line_vertices),-1);
+		draw_datas->array[i][x] = (int)vertice;
 		x++;
 	}
 	free_tokens(line_vertices);
@@ -49,7 +47,7 @@ int	get_array(t_draw_datas *draw_datas, int fd, int i)
 	tmp = get_next_line(fd);
 	if (!tmp)
 		return (-1);
-	draw_datas->map.width = (int)countwords(tmp, ' ');
+	draw_datas->map.width = (int)count_separator(tmp, ' ');
 	if (draw_datas->map.width == 0)
 		return (free(tmp), -1);
 	if (process_line(tmp, draw_datas, i) == -1)
@@ -62,8 +60,10 @@ int	get_array(t_draw_datas *draw_datas, int fd, int i)
 		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
-		if (process_line(tmp, draw_datas, i) == -1)
+		if (process_line(tmp, draw_datas, i) == -1){
+			printf("hit\n");
 			return (free(tmp), -1);
+		}
 		free(tmp);
 		i++;
 	}
@@ -83,8 +83,9 @@ int	process_map(t_draw_datas *draw_datas, char *file_path)
 	if (!draw_datas->array)
 		return (close(fd), -1);
 	i = 0;
-	if (get_array(draw_datas, fd, i) == -1)
+	if (get_array(draw_datas, fd, i) == -1){
 		return (free_array(draw_datas, draw_datas->map.height), close(fd), -1);
+	}
 	close(fd);
 	return (0);
 }

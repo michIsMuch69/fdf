@@ -6,27 +6,25 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 09:40:43 by jedusser          #+#    #+#             */
-/*   Updated: 2024/03/29 18:29:47 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:37:42 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	countwords(char const *s, char c)
+size_t	count_separator(const char *s, char c)
 {
 	size_t	i;
 	size_t	count;
 
 	i = 0;
 	count = 0;
-	if (s == NULL || s == 0)
-		return (0);
-	while (s[i] != '\0')
+	while (s[i])
 	{
 		if (s[i] != c)
 		{
 			count++;
-			while (s[i] && s[i] != c)
+			while (s[i] != c && s[i])
 				i++;
 		}
 		else
@@ -35,64 +33,55 @@ size_t	countwords(char const *s, char c)
 	return (count);
 }
 
-static size_t	lenstr(char const *s, char c, size_t start)
+static size_t	ft_lenstr(const char *s, char c, int start)
 {
-	size_t	len;
+	size_t	count;
 
-	len = 0;
-	while (s[start] != c && s[start] != '\0')
+	count = 0;
+	while (s[start] != c && s[start])
 	{
-		len++;
+		count++;
 		start++;
 	}
-	return (len);
+	return (count);
 }
 
-static void	freetab(char **array, size_t size)
+static void	ft_free_array(char **array, size_t index)
 {
-	while (size--)
+	while (index > 0)
 	{
-		free(array[size]);
+		free(array[index]);
+		index--;
 	}
+	free(array[0]);
 	free(array);
-}
-
-static char	**allocatetab(const char *s, char c, char **tab)
-{
-	size_t	len;
-	size_t	x;
-	size_t	index;
-
-	x = 0;
-	index = 0;
-	while (s[index] && x < countwords(s, c))
-	{
-		if (s[index] != c)
-		{
-			len = lenstr(s, c, index);
-			tab[x] = ft_substr(s, index, len);
-			if (tab[x] == NULL)
-			{
-				freetab(tab, x);
-				return (NULL);
-			}
-			x++;
-			index += len;
-		}
-		else
-			index++;
-	}
-	return (tab);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**tab;
+	size_t	i;
+	size_t	x;
+	char	**dst;
 
-	if (!s)
+	dst = ft_calloc(sizeof(char *), (count_separator(s, c) + 1));
+	if (!dst)
 		return (NULL);
-	tab = ft_calloc(countwords(s, c) + 1, (sizeof(char *)));
-	if (tab == NULL)
-		return (NULL);
-	return (allocatetab(s, c, tab));
+	x = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			dst[x++] = ft_substr(s, i, ft_lenstr(s, c, i));
+			if (!dst[x - 1])
+			{
+				ft_free_array(dst, x - 1);
+				return (NULL);
+			}
+			i = i + ft_lenstr(s, c, i);
+		}
+		else
+			i++;
+	}
+	return (dst);
 }
