@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/22 15:00:18 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:45:58 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,39 @@ int	close_all(t_env *env)
 	return (0);
 }
 
+int	valid_file_extension(char *file_path)
+{
+	size_t	i;
+
+	i = ft_strlen(file_path);
+	if (i <= 4 || file_path[i - 5] == '/')
+		return (1);
+	i -= 1;
+	if (file_path[i] != 'f')
+		return (1);
+	if (file_path[i - 1] != 'd')
+		return (1);
+	if (file_path[i - 2] != 'f')
+		return (1);
+	if (file_path[i - 3] != '.')
+		return (1);
+	return (0);
+}
+
 int	file_is_valid(char *file_path)
 {
 	int		fd;
 	int		counter;
 	char	*line;
 
+	if (valid_file_extension(file_path))
+		return (ft_puterr("Invalid file extension\n"), -1);
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
-		return (ft_puterr("Invalid file"), -1);
+		return (ft_puterr("Invalid file\n"), -1);
 	line = get_next_line(fd);
 	if (!line)
-		return (ft_puterr("Map is empty"), close(fd), -1);
+		return (ft_puterr("Map is empty\n"), close(fd), -1);
 	counter = 1;
 	free (line);
 	while (line)
@@ -43,19 +64,21 @@ int	file_is_valid(char *file_path)
 	close(fd);
 	return (counter - 1);
 }
-int check_data(t_draw_datas *draw_datas)
+
+int	check_data(t_draw_datas *draw_datas)
 {
-	int i;
+	int	i;
 
 	i = 0;
-    while (i < draw_datas->map.height)
+	while (i < draw_datas->map.height)
 	{
-        if (draw_datas->array[i] == NULL)
+		if (draw_datas->array[i] == NULL)
 			return (free_array(draw_datas, draw_datas->map.height), -1);
 		i++;
-    }
-    return (0);
+	}
+	return (0);
 }
+
 int	main(int argc, char **argv)
 {
 	t_draw_datas	draw_datas;
@@ -78,7 +101,6 @@ int	main(int argc, char **argv)
 		return (free_env(env), \
 				free_array(&draw_datas, draw_datas.map.height), -1);
 	render(&draw_datas, env);
-	free_map(draw_datas.array, draw_datas.map.height);
 	mlx_key_hook(env->win_ptr, key_hook, env);
 	mlx_hook(env->win_ptr, 17, 1L << 0, close_all, env);
 	free_image_data(env, draw_datas.img);

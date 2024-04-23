@@ -6,41 +6,47 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/22 15:31:32 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:44:45 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int process_line(char *line, t_draw_datas *draw_datas, int i)
+int	process_line(char *line, t_draw_datas *draw_datas, int i)
 {
-    char **line_vertices;
-    int x = 0;
-    int vertice;
+	char	**line_vertices;
+	int		x;
+	long	vertice;
 
-    draw_datas->array[i] = ft_calloc((size_t) draw_datas->map.width, sizeof(int));
-    if (!draw_datas->array[i])
-    	return (-1);
-    line_vertices = ft_split(line, ' '); // ca leak
-    if (!line_vertices)
-        return (-1); 
-    while (x < draw_datas->map.width)
+	x = 0;
+	draw_datas->array[i] = ft_calloc((size_t) draw_datas->map.width, \
+														sizeof(int));
+	if (!draw_datas->array[i])
+		return (-1);
+	line_vertices = ft_split(line, ' ');
+	if (!line_vertices)
+		return (-1);
+	while (x < draw_datas->map.width)
 	{
-        vertice = ft_atoi(line_vertices[x]);
-        draw_datas->array[i][x] = vertice;
-        x++;
-    }
-    free_tokens(line_vertices);
-    return 0;
+		vertice = ft_atol(line_vertices[x]);
+		if (vertice > INT_MAX || vertice < INT_MIN)
+		{
+			ft_puterr("Bad entry in map\n");
+			return (-1);
+		}
+		draw_datas->array[i][x] = vertice;
+		x++;
+	}
+	free_tokens(line_vertices);
+	return (0);
 }
-
 
 int	get_array(t_draw_datas *draw_datas, int fd, int i)
 {
 	char	*tmp;
-	
+
 	tmp = NULL;
-	tmp = get_next_line(fd); //ca leak plus
+	tmp = get_next_line(fd);
 	if (!tmp)
 		return (-1);
 	draw_datas->map.width = (int)countwords(tmp, ' ');
@@ -53,7 +59,7 @@ int	get_array(t_draw_datas *draw_datas, int fd, int i)
 	while (i <= draw_datas->map.height)
 	{
 		tmp = NULL;
-		tmp = get_next_line(fd); //leak et segfault
+		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
 		if (process_line(tmp, draw_datas, i) == -1)

@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:40:42 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/11 10:46:50 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:40:30 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	render(t_draw_datas *draw_datas, t_env *env)
 	draw_grid(draw_datas);
 	mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, \
 	draw_datas->img->img, 0, 0);
+	free_map(draw_datas->array, draw_datas->map.height);
 }
