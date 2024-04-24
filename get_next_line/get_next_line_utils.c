@@ -5,34 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 09:39:15 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/02 14:35:16 by jedusser         ###   ########.fr       */
+/*   Created: 2023/12/14 16:18:30 by fberthou          #+#    #+#             */
+/*   Updated: 2024/04/24 12:25:44 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*gnl_ft_strdup(char *s1)
+void	clear_buffer(char *buffer, int index)
 {
-	char			*dest;
-	unsigned int	i;
-
-	dest = (char *) malloc(gnl_ft_strlen(s1) + 1);
-	if (!dest)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	dest[i] = 0;
-	return (dest);
+	while (index < BUFFER_SIZE)
+		buffer[index++] = '\0';
 }
 
-size_t	gnl_ft_strlen(char *s)
+size_t	lenstr(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -40,53 +28,67 @@ size_t	gnl_ft_strlen(char *s)
 	return (i);
 }
 
-char	*gnl_ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_calloct(size_t nmemb, size_t size)
 {
+	char	*dst;
 	size_t	i;
-	char	*str;
+	size_t	result;
 
-	if (!s)
+	result = nmemb * size;
+	if (result == 0 || (result / nmemb != size))
 		return (NULL);
-	if (len > gnl_ft_strlen(s + start))
-		len = gnl_ft_strlen(s + start);
-	str = malloc((len + 1) * sizeof(char));
-	if (!str)
+	dst = malloc(result);
+	if (!dst)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < result)
 	{
-		str[i] = s[start + i];
+		dst[i] = '\0';
 		i++;
 	}
-	str[i] = 0;
-	return (str);
+	return (dst);
 }
 
-char	*gnl_ft_strjoin(char *s1, char *s2)
+char	*cpy_substr(char *buffer)
 {
+	char	*dst;
 	size_t	len;
 	size_t	i;
-	char	*str;
-	size_t	length;
 
-	length = gnl_ft_strlen(s1);
-	if (s1 == NULL || s2 == NULL)
+	len = lenstr(buffer);
+	dst = ft_calloct(sizeof(char), len + 1);
+	if (!dst)
 		return (NULL);
 	i = 0;
-	len = length + gnl_ft_strlen(s2);
-	str = malloc((len + 1) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	while (i < length)
-	{
-		str[i] = s1[i];
-		i++;
-	}
 	while (i < len)
 	{
-		str[i] = s2[i - length];
+		dst[i] = buffer[i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	return (dst);
+}
+
+char	*concate_buffer(char *buffer, char *tmp)
+{
+	size_t	i;
+	size_t	x;
+	char	*dst;
+
+	dst = ft_calloct(sizeof(char), (lenstr(tmp) + lenstr(buffer) + 1));
+	if (!dst)
+		return (free(tmp), NULL);
+	i = 0;
+	while (tmp[i])
+	{
+		dst[i] = tmp[i];
+		i++;
+	}
+	x = 0;
+	while (buffer[x])
+	{
+		dst[i + x] = buffer[x];
+		x++;
+	}
+	free(tmp);
+	return (dst);
 }

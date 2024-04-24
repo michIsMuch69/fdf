@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/23 15:46:48 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:29:20 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ int	get_array(t_draw_datas *draw_datas, int fd, int i)
 		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
-		if (process_line(tmp, draw_datas, i) == -1){
-			printf("hit\n");
+		if (process_line(tmp, draw_datas, i) == -1)
 			return (free(tmp), -1);
-		}
 		free(tmp);
 		i++;
 	}
