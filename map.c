@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/24 12:29:20 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:23:34 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	process_line(char *line, t_draw_datas *draw_datas, int i)
 	{
 		vertice = ft_atol(line_vertices[x]);
 		if (vertice > INT_MAX || vertice < INT_MIN)
-			return (free_tokens(line_vertices),-1);
+			return (free_tokens(line_vertices), -1);
 		draw_datas->array[i][x] = (int)vertice;
 		x++;
 	}
@@ -81,9 +81,8 @@ int	process_map(t_draw_datas *draw_datas, char *file_path)
 	if (!draw_datas->array)
 		return (close(fd), -1);
 	i = 0;
-	if (get_array(draw_datas, fd, i) == -1){
+	if (get_array(draw_datas, fd, i) == -1)
 		return (free_array(draw_datas, draw_datas->map.height), close(fd), -1);
-	}
 	close(fd);
 	return (0);
 }
