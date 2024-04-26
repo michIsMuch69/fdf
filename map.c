@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:59 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/26 08:23:34 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:54:30 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_array(t_draw_datas *draw_datas, int fd, int i)
 	tmp = get_next_line(fd);
 	if (!tmp)
 		return (-1);
-	draw_datas->map.width = (int)count_separator(tmp, ' ');
+	draw_datas->map.width = count_separator(tmp, ' ');
 	if (draw_datas->map.width == 0)
 		return (free(tmp), -1);
 	if (process_line(tmp, draw_datas, i) == -1)

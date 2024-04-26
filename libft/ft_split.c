@@ -6,16 +6,16 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 09:40:43 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/26 08:23:04 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:53:09 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	count_separator(const char *s, char c)
+int	count_separator(const char *s, char c)
 {
-	size_t	i;
-	size_t	count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;

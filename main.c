@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 12:51:01 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/23 13:45:58 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:06:04 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ int	valid_file_extension(char *file_path)
 	return (0);
 }
 
-int	file_is_valid(char *file_path)
+int	file_is_valid(char *file_path, t_draw_datas *draw_datas)
 {
 	int		fd;
 	int		counter;
 	char	*line;
+	int		length;
 
 	if (valid_file_extension(file_path))
 		return (ft_puterr("Invalid file extension\n"), -1);
@@ -53,15 +54,17 @@ int	file_is_valid(char *file_path)
 	line = get_next_line(fd);
 	if (!line)
 		return (ft_puterr("Map is empty\n"), close(fd), -1);
+	length = count_separator(line, ' ');
 	counter = 1;
-	free (line);
 	while (line)
 	{
+		free (line);
 		line = get_next_line(fd);
+		check_lines_width(line, fd, length);
 		counter++;
-		free(line);
 	}
 	close(fd);
+	draw_datas->map.width = length;
 	return (counter - 1);
 }
 
@@ -86,7 +89,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (-1);
-	draw_datas.map.height = file_is_valid(argv[1]);
+	draw_datas.map.height = file_is_valid(argv[1], &draw_datas);
 	if (draw_datas.map.height == -1)
 		return (-1);
 	if (process_map(&draw_datas, argv[1]) == -1)
