@@ -6,7 +6,7 @@
 #    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 11:46:43 by jedusser          #+#    #+#              #
-#    Updated: 2024/04/26 10:06:45 by jedusser         ###   ########.fr        #
+#    Updated: 2024/04/26 10:10:59 by jedusser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ GNL_SRC = get_next_line/get_next_line_utils.c get_next_line/get_next_line.c
 OBJ_DIR = obj/
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o) $(GNL_SRC:%.c=%.o) 
 
-CC = gcc
+CC = cc
 CFLAGS = -Wextra -Wall -Werror -Ilibft -Iminilibx-linux
 
 all: mlx  libft $(NAME)
