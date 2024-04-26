@@ -6,7 +6,7 @@
 /*   By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:08:40 by jedusser          #+#    #+#             */
-/*   Updated: 2024/04/26 09:05:52 by jedusser         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:56:00 by jedusser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	check_lines_width(char *line, int fd, int length)
 	{
 		free(line);
 		close(fd);
+		ft_puterr("Invalid file");
 		exit(EXIT_FAILURE);
 		return (1);
 	}
