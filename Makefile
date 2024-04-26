@@ -6,7 +6,7 @@
 #    By: jedusser <jedusser@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/27 11:46:43 by jedusser          #+#    #+#              #
-#    Updated: 2024/04/22 09:46:43 by jedusser         ###   ########.fr        #
+#    Updated: 2024/04/26 10:06:45 by jedusser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ OBJ_DIR = obj/
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o) $(GNL_SRC:%.c=%.o) 
 
 CC = gcc
-CFLAGS = -g3 -Wextra -Wall -Werror -Ilibft -Iminilibx-linux
-
+CFLAGS = -Wextra -Wall -Werror -Ilibft -Iminilibx-linux
 
 all: mlx  libft $(NAME)
 
